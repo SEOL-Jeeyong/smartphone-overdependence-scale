@@ -459,7 +459,7 @@ body {
 
 .checklist-table {
   width: 100%;
-  min-width: 780px;
+  min-width: 760px;
   table-layout: fixed;
   border-collapse: collapse;
   font-size: 0.9rem;
@@ -483,12 +483,12 @@ body {
   line-height: 1.35;
 }
 
-.checklist-table thead .th-num { width: 50px; background: #0c6133; }
-.checklist-table thead .th-factor { width: 135px; background: #0c6133; }
+.checklist-table thead .th-num { width: 48px; background: #0c6133; }
+.checklist-table thead .th-factor { width: 120px; background: #0c6133; }
 .checklist-table thead .th-question { text-align: left; }
 .checklist-table thead .th-opt {
-  width: 98px;
-  padding: 10px 6px;
+  width: 88px;
+  padding: 10px 4px;
 }
 
 .opt-text {
@@ -507,9 +507,18 @@ body {
   line-height: 1;
 }
 
-.checklist-table thead .th-score { width: 95px; background: #0c6133; }
+.checklist-table thead .th-score { width: 88px; background: #0c6133; }
 
-/* 본문 */
+/* 본문 행 및 셀 높이 완벽 통일 (문항 텍스트 길이에 관계없이 체크박스 높이 일치) */
+.checklist-table tbody tr {
+  height: 62px;
+}
+
+.checklist-table tbody td {
+  height: 62px;
+  vertical-align: middle;
+}
+
 .checklist-table tbody tr:hover td {
   background-color: #f8fafc;
 }
@@ -525,14 +534,16 @@ body {
   text-align: center;
   background: #f8fafc;
   color: var(--primary-dark);
-  line-height: 1.3;
+  line-height: 1.35;
+  padding: 8px 10px;
 }
 
 .checklist-table .td-question {
   text-align: left;
-  line-height: 1.45;
+  line-height: 1.42;
   color: var(--text-main);
-  padding: 12px 14px;
+  padding: 8px 14px;
+  word-break: keep-all;
 }
 
 .badge-rev {
@@ -546,8 +557,10 @@ body {
   border: 1px solid #fca5a5;
 }
 
-/* 라디오 옵션 셀 */
+/* 라디오 옵션 셀: 모든 문항 동일한 높이와 패딩 없는 꽉 찬 클릭 영역 */
 .checklist-table .td-opt-cell {
+  height: 62px;
+  padding: 0;
   text-align: center;
   cursor: pointer;
   transition: var(--transition);
@@ -558,7 +571,7 @@ body {
   background: #f1f5f9;
 }
 
-/* 선택된 셀: 엑셀 노란색 하이라이트 */
+/* 선택된 셀: 엑셀 노란색 하이라이트 (모든 문항 동일한 높이와 형태) */
 .checklist-table .td-opt-cell.cell-selected {
   background-color: var(--excel-yellow) !important;
   outline: 2px solid var(--excel-yellow-border);
@@ -572,13 +585,19 @@ body {
   cursor: pointer;
   width: 100%;
   height: 100%;
+  min-height: 62px;
 }
 
 .radio-label input[type="radio"] {
   width: 18px;
   height: 18px;
+  margin: 0;
   cursor: pointer;
   accent-color: #0284c7;
+}
+
+.radio-label .custom-radio {
+  display: none;
 }
 
 /* 점수 표시 셀 */
