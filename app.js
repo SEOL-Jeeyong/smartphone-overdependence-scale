@@ -331,7 +331,6 @@ function renderTable() {
         ${factorTd}
         <td class="td-question">
           ${q.text}
-          ${q.isReversed ? `<span class="badge-rev" title="중독성이 낮을수록 높은 배점을 주는 역채점 문항입니다">역채점</span>` : ""}
         </td>
         ${[1, 2, 3, 4].map(opt => {
           const isSelected = currentAns === opt;
