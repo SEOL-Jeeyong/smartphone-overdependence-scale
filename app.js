@@ -273,16 +273,10 @@ function renderCriteriaBanner() {
   let potText = `${crit.potential.min}~${crit.potential.max}점`;
   let highText = `${crit.highRisk.min}점 이상`;
 
-  let extraNote = "";
-  if (state.currentType === "observer") {
-    extraNote = `<span class="badge-rev-note"><i class="fa-solid fa-arrows-rotate"></i> 1~3번 문항 역채점(1번→4점, 2번→3점, 3번→2점, 4번→1점) 자동 계산</span>`;
-  }
-
   banner.innerHTML = `
     <div class="banner-title">
       <i class="fa-solid fa-circle-check text-primary"></i>
       <strong>[${subtype.name}] 판별 기준 점수 (총점 최고 ${typeConfig.maxScore}점)</strong>
-      ${extraNote}
     </div>
     <div class="banner-criteria-badges">
       <span class="crit-badge normal">일반 사용자군: ${normalText}</span>
