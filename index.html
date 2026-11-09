@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>스마트폰 과의존 척도(S척도) 체크리스트</title>
+  <!-- Pretendard 웹폰트 -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <!-- Font Awesome 아이콘 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app-wrap">
+    <!-- 헤더 -->
+    <header class="checklist-header">
+      <div class="header-inner">
+        <div class="title-group">
+          <h1><i class="fa-solid fa-mobile-screen-button"></i> 스마트폰 과의존 척도 (S-척도) 체크리스트</h1>
+          <p class="subtitle">
+            과학기술정보통신부 · 한국지능정보사회진흥원(NIA) 표준 진단 척도 
+            <span class="year-badge"><i class="fa-regular fa-calendar-check"></i> 2021년 가이드라인 기준</span>
+          </p>
+        </div>
+        <div class="header-actions">
+          <button type="button" class="btn btn-outline" id="btn-reset">
+            <i class="fa-solid fa-rotate-left"></i> 초기화
+          </button>
+          <button type="button" class="btn btn-print" id="btn-print">
+            <i class="fa-solid fa-print"></i> 결과 인쇄
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+      
+      <!-- 1단계: 척도 및 대상 선택 -->
+      <section class="card-section target-section">
+        <div class="section-label">
+          <span class="step-num">1</span>
+          <h2>진단 대상 및 척도 유형 선택</h2>
+        </div>
+
+        <!-- 척도 대분류 탭 (관찰자용 vs 자기점검용) -->
+        <div class="type-switch-group">
+          <button type="button" class="type-tab-btn active" data-type="self">
+            <i class="fa-solid fa-user-check"></i>
+            <div class="type-tab-text">
+              <strong>자기점검용 척도</strong>
+              <span>본인 스스로 점검 (10문항, 40점 만점)</span>
+            </div>
+          </button>
+          <button type="button" class="type-tab-btn" data-type="observer">
+            <i class="fa-solid fa-users-viewfinder"></i>
+            <div class="type-tab-text">
+              <strong>관찰자용 척도</strong>
+              <span>부모·양육자가 아이를 관찰 (9문항, 36점 만점, 1~3번 역채점)</span>
+            </div>
+          </button>
+        </div>
+
+        <!-- 세부 연령/대상 선택 알약 버튼들 -->
+        <div class="sub-target-group" id="sub-target-group">
+          <!-- JS에서 동적 렌더링 -->
+        </div>
+
+        <!-- 현재 선택된 대상의 기준 점수 요약 안내 바 -->
+        <div class="criteria-banner" id="criteria-banner">
+          <!-- JS에서 동적 렌더링 -->
+        </div>
+      </section>
+
+      <!-- 2단계: 체크리스트 테이블 -->
+      <section class="card-section checklist-section">
+        <div class="section-label">
+          <span class="step-num">2</span>
+          <h2>문항별 체크 (답변 선택)</h2>
+          <span class="tip-text" id="checklist-tip-text"><i class="fa-solid fa-circle-info"></i> 각 문항을 읽고 자신에게 해당하는 칸을 체크해 주세요.</span>
+        </div>
+
+        <div class="table-container">
+          <table class="checklist-table" id="checklist-table">
+            <thead>
+              <tr>
+                <th class="th-num">번호</th>
+                <th class="th-factor">하위 요인</th>
+                <th class="th-question">문항 내용</th>
+                <th class="th-opt" data-opt="1">전혀<br>그렇지 않다<br><small>(1점)</small></th>
+                <th class="th-opt" data-opt="2">그렇지<br>않다<br><small>(2점)</small></th>
+                <th class="th-opt" data-opt="3">그렇다<br><br><small>(3점)</small></th>
+                <th class="th-opt" data-opt="4">매우<br>그렇다<br><small>(4점)</small></th>
+                <th class="th-score">환산 점수</th>
+              </tr>
+            </thead>
+            <tbody id="checklist-tbody">
+              <!-- JS에서 동적 렌더링 -->
+            </tbody>
+            <tfoot id="checklist-tfoot">
+              <!-- JS에서 요인별 합계 및 총점 렌더링 -->
+            </tfoot>
+          </table>
+        </div>
+      </section>
+
+      <!-- 3단계: 실시간 판별 결과 리포트 -->
+      <section class="card-section result-section" id="result-section">
+        <div class="section-label">
+          <span class="step-num">3</span>
+          <h2>진단 및 판별 결과</h2>
+        </div>
+
+        <div class="result-dashboard" id="result-dashboard">
+          <!-- JS에서 동적 렌더링 -->
+        </div>
+      </section>
+
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="app-footer">
+      <p>스마트폰 과의존 상담 및 도움: <strong>스마트쉼센터 무료 상담전화 1599-0075</strong> (평일 09:00~18:00) | 누리집: <a href="https://www.iapc.or.kr" target="_blank">www.iapc.or.kr</a></p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

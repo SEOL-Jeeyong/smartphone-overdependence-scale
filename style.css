@@ -1,0 +1,768 @@
+/* ==========================================================
+   스마트폰 과의존 척도 (S-척도) 체크리스트 전용 스타일시트
+   ========================================================== */
+
+:root {
+  --primary: #0284c7;
+  --primary-dark: #0369a1;
+  --primary-light: #f0f9ff;
+  --primary-border: #bae6fd;
+
+  --excel-header: #107c41;
+  --excel-header-sub: #185a37;
+  --excel-yellow: #fef08a;
+  --excel-yellow-border: #eab308;
+  --excel-yellow-light: #fef9c3;
+
+  --status-normal: #10b981;
+  --status-normal-bg: #ecfdf5;
+  --status-normal-border: #6ee7b7;
+  --status-normal-text: #065f46;
+
+  --status-potential: #f59e0b;
+  --status-potential-bg: #fffbeb;
+  --status-potential-border: #fcd34d;
+  --status-potential-text: #92400e;
+
+  --status-high: #ef4444;
+  --status-high-bg: #fef2f2;
+  --status-high-border: #fca5a5;
+  --status-high-text: #991b1b;
+
+  --text-main: #0f172a;
+  --text-sub: #334155;
+  --text-muted: #64748b;
+  --bg-page: #f8fafc;
+  --bg-card: #ffffff;
+  --border-light: #e2e8f0;
+  --border-medium: #cbd5e1;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+  --shadow-lg: 0 10px 25px rgba(0,0,0,0.08);
+  --transition: all 0.2s ease-in-out;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Segoe UI", sans-serif;
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+.app-wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 24px 20px 60px;
+}
+
+/* ==========================================================
+   헤더 (Checklist Header)
+   ========================================================== */
+.checklist-header {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  padding: 24px 30px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-light);
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.title-group h1 {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.title-group h1 i {
+  color: var(--primary);
+}
+
+.title-group .subtitle {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.year-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #e0f2fe;
+  color: #0369a1;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid #bae6fd;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: var(--transition);
+}
+
+.btn-outline {
+  background: #ffffff;
+  border-color: var(--border-medium);
+  color: var(--text-sub);
+}
+.btn-outline:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.btn-print {
+  background: var(--primary);
+  color: #ffffff;
+}
+.btn-print:hover {
+  background: var(--primary-dark);
+}
+
+/* ==========================================================
+   카드 공통 섹션
+   ========================================================== */
+.card-section {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  padding: 26px 30px;
+  margin-bottom: 24px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+}
+
+.section-label {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.step-num {
+  width: 28px;
+  height: 28px;
+  background: #0284c7;
+  color: #ffffff;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.9rem;
+}
+
+.section-label h2 {
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.section-label .tip-text {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-left: auto;
+}
+
+/* ==========================================================
+   1단계: 척도 & 대상 선택 (Target Section)
+   ========================================================== */
+.type-switch-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+@media (max-width: 680px) {
+  .type-switch-group {
+    grid-template-columns: 1fr;
+  }
+}
+
+.type-tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  background: #f8fafc;
+  border: 2px solid var(--border-light);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  text-align: left;
+  transition: var(--transition);
+}
+
+.type-tab-btn i {
+  font-size: 1.6rem;
+  color: #94a3b8;
+  transition: var(--transition);
+}
+
+.type-tab-text strong {
+  display: block;
+  font-size: 1.02rem;
+  color: var(--text-main);
+  margin-bottom: 2px;
+}
+
+.type-tab-text span {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.type-tab-btn:hover {
+  border-color: #93c5fd;
+  background: #ffffff;
+}
+
+.type-tab-btn.active {
+  background: #ffffff;
+  border-color: var(--primary);
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.12);
+}
+
+.type-tab-btn.active i {
+  color: var(--primary);
+}
+
+.type-tab-btn.active strong {
+  color: var(--primary-dark);
+}
+
+/* 세부 대상 알약 버튼 */
+.sub-target-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.sub-target-pill {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 9px 16px;
+  background: #ffffff;
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.sub-target-pill:hover {
+  border-color: var(--primary);
+  background: #f8fafc;
+}
+
+.sub-target-pill.active {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 1px var(--primary);
+}
+
+.sub-target-pill .st-name {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.sub-target-pill.active .st-name {
+  color: var(--primary-dark);
+}
+
+.sub-target-pill .st-desc {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  margin-top: 1px;
+}
+
+.sub-target-pill.active .st-desc {
+  color: #0369a1;
+}
+
+/* 판별 기준 요약 배너 */
+.criteria-banner {
+  background: #f1f5f9;
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.banner-title {
+  font-size: 0.88rem;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.badge-rev-note {
+  background: #fee2e2;
+  color: #dc2626;
+  font-size: 0.74rem;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.banner-criteria-badges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.crit-badge {
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.crit-badge.normal { background: var(--status-normal-bg); color: var(--status-normal-text); border: 1px solid var(--status-normal-border); }
+.crit-badge.potential { background: var(--status-potential-bg); color: var(--status-potential-text); border: 1px solid var(--status-potential-border); }
+.crit-badge.high { background: var(--status-high-bg); color: var(--status-high-text); border: 1px solid var(--status-high-border); }
+
+/* ==========================================================
+   2단계: 체크리스트 테이블 (엑셀 스타일 인터페이스)
+   ========================================================== */
+.table-container {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.checklist-table {
+  width: 100%;
+  min-width: 750px;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+}
+
+.checklist-table th, .checklist-table td {
+  border: 1px solid #cbd5e1;
+  padding: 10px 12px;
+  vertical-align: middle;
+}
+
+/* 헤더: 엑셀 느낌의 정갈한 초록 계열 */
+.checklist-table thead th {
+  background: #107c41;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.35;
+}
+
+.checklist-table thead .th-num { width: 50px; background: #0c6133; }
+.checklist-table thead .th-factor { width: 135px; background: #0c6133; }
+.checklist-table thead .th-question { text-align: left; }
+.checklist-table thead .th-opt { width: 85px; }
+.checklist-table thead .th-score { width: 95px; background: #0c6133; }
+
+/* 본문 */
+.checklist-table tbody tr:hover td {
+  background-color: #f8fafc;
+}
+
+.checklist-table .td-num {
+  text-align: center;
+  font-weight: 700;
+  color: #64748b;
+  background: #f8fafc;
+}
+
+.checklist-table .td-factor {
+  text-align: center;
+  background: #f8fafc;
+  color: var(--primary-dark);
+  line-height: 1.3;
+}
+
+.checklist-table .td-question {
+  text-align: left;
+  line-height: 1.45;
+  color: var(--text-main);
+  padding: 12px 14px;
+}
+
+.badge-rev {
+  background: #fee2e2;
+  color: #dc2626;
+  font-size: 0.72rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 6px;
+  font-weight: 700;
+  border: 1px solid #fca5a5;
+}
+
+/* 라디오 옵션 셀 */
+.checklist-table .td-opt-cell {
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+  user-select: none;
+}
+
+.checklist-table .td-opt-cell:hover {
+  background: #f1f5f9;
+}
+
+/* 선택된 셀: 엑셀 노란색 하이라이트 */
+.checklist-table .td-opt-cell.cell-selected {
+  background-color: var(--excel-yellow) !important;
+  outline: 2px solid var(--excel-yellow-border);
+  outline-offset: -2px;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+.radio-label input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: #0284c7;
+}
+
+/* 점수 표시 셀 */
+.checklist-table .td-score-val {
+  text-align: center;
+  font-weight: 700;
+  color: #64748b;
+  background: #f8fafc;
+}
+
+.checklist-table .td-score-val.has-val {
+  color: #0369a1;
+  background: #e0f2fe;
+}
+
+.checklist-table .td-score-val.has-val strong {
+  font-size: 1.05rem;
+}
+
+/* 하단 요인별 소계 & 총점 행 */
+.checklist-table tfoot tr {
+  font-weight: 700;
+}
+
+.tfoot-factor-row {
+  background: #f8fafc;
+  font-size: 0.88rem;
+}
+
+.tfoot-factor-row td {
+  border-top: 2px solid #94a3b8;
+}
+
+.factor-scores-td {
+  padding: 10px 14px !important;
+  background: #f8fafc;
+  vertical-align: middle;
+}
+
+.factor-scores-container {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  width: 100%;
+}
+
+.factor-score-item {
+  background: #ffffff;
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  padding: 7px 18px;
+  font-size: 0.88rem;
+  color: var(--text-sub);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  transition: var(--transition);
+}
+
+.factor-score-item:hover {
+  border-color: #93c5fd;
+  background: #f0f9ff;
+}
+
+.factor-score-item .f-name {
+  font-weight: 700;
+  color: #334155;
+  white-space: nowrap;
+}
+
+.factor-score-item .f-val {
+  color: var(--primary);
+  font-size: 1.08rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.tfoot-total-row {
+  background: #e6f4ea;
+  font-size: 0.98rem;
+}
+
+.tfoot-total-row td {
+  border-top: 2px double #107c41;
+  border-bottom: 2px solid #107c41;
+  color: #0f5132;
+}
+
+.total-progress-cell {
+  color: #1e293b;
+  font-size: 0.92rem;
+}
+
+.td-score-val.subtotal {
+  font-size: 1.15rem;
+  color: #0284c7;
+  background: #e0f2fe;
+}
+
+.td-score-val.grand-total {
+  font-size: 1.18rem;
+  color: #0f5132;
+  background: #d1e7dd;
+}
+
+.text-right { text-align: right; }
+.text-center { text-align: center; }
+
+/* ==========================================================
+   3단계: 판별 결과 리포트 대시보드
+   ========================================================== */
+.result-card {
+  border-radius: var(--radius-md);
+  padding: 22px 26px;
+  border: 2px solid var(--border-light);
+  transition: var(--transition);
+}
+
+.result-card.status-normal {
+  background: linear-gradient(to right, #ffffff, var(--status-normal-bg));
+  border-color: var(--status-normal-border);
+}
+
+.result-card.status-potential {
+  background: linear-gradient(to right, #ffffff, var(--status-potential-bg));
+  border-color: var(--status-potential-border);
+}
+
+.result-card.status-high {
+  background: linear-gradient(to right, #ffffff, var(--status-high-bg));
+  border-color: var(--status-high-border);
+}
+
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.25rem;
+  font-weight: 800;
+  padding: 6px 16px;
+  border-radius: 50px;
+}
+
+.status-normal .status-badge {
+  background: var(--status-normal);
+  color: #ffffff;
+}
+
+.status-potential .status-badge {
+  background: var(--status-potential);
+  color: #ffffff;
+}
+
+.status-high .status-badge {
+  background: var(--status-high);
+  color: #ffffff;
+}
+
+.result-target-label {
+  font-size: 0.95rem;
+  color: var(--text-sub);
+}
+
+.result-body {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 24px;
+  align-items: center;
+}
+
+@media (max-width: 680px) {
+  .result-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+.score-display-box {
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.score-main .num {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--primary);
+}
+
+.score-main .max {
+  font-size: 1rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.score-sub {
+  margin-top: 6px;
+  font-size: 0.8rem;
+}
+
+.tag-done {
+  color: #10b981;
+  font-weight: 700;
+}
+
+.tag-ing {
+  color: #f59e0b;
+  font-weight: 600;
+}
+
+.interpretation-box h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.interpretation-box .desc {
+  font-size: 0.92rem;
+  color: var(--text-sub);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.criteria-reference {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================================
+   푸터
+   ========================================================== */
+.app-footer {
+  text-align: center;
+  padding-top: 10px;
+  font-size: 0.84rem;
+  color: var(--text-muted);
+}
+
+.app-footer a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+/* ==========================================================
+   인쇄 스타일
+   ========================================================== */
+@media print {
+  body {
+    background: #ffffff;
+  }
+  .app-wrap {
+    max-width: 100%;
+    padding: 0;
+  }
+  .header-actions, .tip-text {
+    display: none !important;
+  }
+  .card-section {
+    border: 1px solid #ccc;
+    box-shadow: none;
+    page-break-inside: avoid;
+  }
+}
