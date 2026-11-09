@@ -275,7 +275,7 @@ function renderCriteriaBanner() {
 
   let extraNote = "";
   if (state.currentType === "observer") {
-    extraNote = `<span class="badge-rev-note"><i class="fa-solid fa-arrows-rotate"></i> 1~3번 문항 역채점(1번→4점, 2번→3점, 3번→2점, 4번→1점) 자동 계산</span>`;
+    extraNote = `<span class="badge-rev-note"><i class="fa-solid fa-arrows-rotate"></i> 1~3번 문항 역채점(①번→4점, ②번→3점, ③번→2점, ④번→1점) 자동 계산</span>`;
   }
 
   banner.innerHTML = `

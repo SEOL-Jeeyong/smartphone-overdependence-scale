@@ -425,11 +425,11 @@ body {
 
 .opt-score-label {
   display: block;
-  font-size: 0.92rem;
+  font-size: 1.15rem;
   font-weight: 800;
   color: #fef08a;
-  margin-top: 5px;
-  letter-spacing: -0.3px;
+  margin-top: 4px;
+  line-height: 1;
 }
 
 .checklist-table thead .th-score { width: 95px; background: #0c6133; }
