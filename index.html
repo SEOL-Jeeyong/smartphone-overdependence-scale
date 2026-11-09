@@ -8,7 +8,7 @@
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
   <!-- Font Awesome 아이콘 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <link rel="stylesheet" href="style.css?v=20261109_2">
+  <link rel="stylesheet" href="style.css?v=20261109_5">
 </head>
 <body>
 
@@ -72,7 +72,7 @@
         </div>
       </section>
 
-      <!-- 2단계: 체크리스트 테이블 -->
+      <!-- 2단계: 체크리스트 테이블 및 모바일 카드 -->
       <section class="card-section checklist-section">
         <div class="section-label">
           <span class="step-num">2</span>
@@ -80,7 +80,19 @@
           <span class="tip-text" id="checklist-tip-text"><i class="fa-solid fa-circle-info"></i> 각 문항을 읽고 자신에게 해당하는 칸을 체크해 주세요.</span>
         </div>
 
-        <div class="table-container">
+        <!-- 실시간 진행 현황 바 -->
+        <div class="progress-wrap" id="progress-wrap">
+          <div class="progress-info">
+            <span class="progress-label"><i class="fa-solid fa-bars-progress"></i> 응답 진행 현황</span>
+            <span class="progress-text" id="progress-text"><strong>0</strong> / 10문항 완료 (0%)</span>
+          </div>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progress-bar-fill" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <!-- 데스크톱용 테이블 뷰 (화면 폭 768px 초과) -->
+        <div class="table-container desktop-only">
           <table class="checklist-table" id="checklist-table">
             <thead>
               <tr>
@@ -114,6 +126,16 @@
             </tfoot>
           </table>
         </div>
+
+        <!-- 모바일 전용 카드 뷰 (스마트폰 최적화, 화면 폭 768px 이하) -->
+        <div class="mobile-checklist-wrap mobile-only" id="mobile-checklist-wrap">
+          <div class="mobile-card-list" id="mobile-card-list">
+            <!-- JS에서 동적 렌더링 -->
+          </div>
+          <div class="mobile-summary-card" id="mobile-summary-card">
+            <!-- JS에서 요인별 소계 및 총점 동적 렌더링 -->
+          </div>
+        </div>
       </section>
 
       <!-- 3단계: 실시간 판별 결과 리포트 -->
@@ -136,6 +158,6 @@
     </footer>
   </div>
 
-  <script src="app.js?v=20261109_2"></script>
+  <script src="app.js?v=20261109_5"></script>
 </body>
 </html>

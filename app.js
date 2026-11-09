@@ -292,6 +292,28 @@ function renderCriteriaBanner() {
   `;
 }
 
+// 옵션 항목 상수
+const SCALE_OPTIONS = [
+  { val: 1, num: "①", text: "전혀 그렇지 않다" },
+  { val: 2, num: "②", text: "그렇지 않다" },
+  { val: 3, num: "③", text: "그렇다" },
+  { val: 4, num: "④", text: "매우 그렇다" }
+];
+
+// 요인별 뱃지 스타일 정보
+function getFactorBadgeInfo(factorName) {
+  switch (factorName) {
+    case "조절실패":
+      return { className: "badge-factor-control", icon: "fa-solid fa-sliders" };
+    case "현저성":
+      return { className: "badge-factor-salience", icon: "fa-solid fa-bolt" };
+    case "문제적 결과":
+      return { className: "badge-factor-consequence", icon: "fa-solid fa-triangle-exclamation" };
+    default:
+      return { className: "badge-factor-default", icon: "fa-solid fa-tag" };
+  }
+}
+
 // 문항별 점수 계산
 function getItemScore(q, rawAnswer) {
   if (!rawAnswer) return 0;
@@ -299,8 +321,43 @@ function getItemScore(q, rawAnswer) {
   return matrix ? matrix[rawAnswer - 1] : 0;
 }
 
-// 체크리스트 테이블 렌더링
+// 답변 선택 통합 핸들러
+function setAnswer(qid, val) {
+  state.answers[qid] = val;
+  renderTable();
+  renderResult();
+}
+
+// 응답 진행률 프로그레스 바 갱신
+function updateProgressBar() {
+  const progressText = document.getElementById("progress-text");
+  const progressBarFill = document.getElementById("progress-bar-fill");
+  if (!progressText || !progressBarFill) return;
+
+  const typeConfig = SCALE_DATA[state.currentType];
+  const totalCount = typeConfig.questions.length;
+  const answeredCount = Object.keys(state.answers).length;
+  const percentage = Math.round((answeredCount / totalCount) * 100);
+
+  progressText.innerHTML = `<strong>${answeredCount}</strong> / ${totalCount}문항 완료 (${percentage}%)`;
+  progressBarFill.style.width = `${percentage}%`;
+
+  if (answeredCount === totalCount) {
+    progressBarFill.classList.add("completed");
+  } else {
+    progressBarFill.classList.remove("completed");
+  }
+}
+
+// 전체 테이블 및 모바일 뷰 렌더링
 function renderTable() {
+  renderDesktopTable();
+  renderMobileCards();
+  updateProgressBar();
+}
+
+// 데스크톱 테이블 렌더링
+function renderDesktopTable() {
   const tbody = document.getElementById("checklist-tbody");
   const tfoot = document.getElementById("checklist-tfoot");
   if (!tbody || !tfoot) return;
@@ -357,14 +414,124 @@ function renderTable() {
 
   // 셀 클릭 및 라디오 체인지 이벤트
   tbody.querySelectorAll(".td-opt-cell").forEach(cell => {
-    cell.addEventListener("click", (e) => {
+    cell.addEventListener("click", () => {
       const qid = parseInt(cell.getAttribute("data-qid"), 10);
       const val = parseInt(cell.getAttribute("data-val"), 10);
-      state.answers[qid] = val;
-      renderTable();
-      renderResult();
+      setAnswer(qid, val);
     });
   });
+}
+
+// 모바일 전용 카드 리스트 렌더링
+function renderMobileCards() {
+  const listEl = document.getElementById("mobile-card-list");
+  const summaryEl = document.getElementById("mobile-summary-card");
+  if (!listEl) return;
+
+  const typeConfig = SCALE_DATA[state.currentType];
+  const questions = typeConfig.questions;
+
+  let listHtml = "";
+
+  questions.forEach(q => {
+    const currentAns = state.answers[q.id] || null;
+    const factorInfo = getFactorBadgeInfo(q.factor);
+    const scoreVal = currentAns ? getItemScore(q, currentAns) : null;
+    const isAnswered = currentAns !== null;
+
+    listHtml += `
+      <article class="m-card ${isAnswered ? "m-card-answered" : ""}" data-qid="${q.id}">
+        <div class="m-card-header">
+          <div class="m-badge-group">
+            <span class="m-num-badge">문항 ${q.id}</span>
+            <span class="m-factor-badge ${factorInfo.className}">
+              <i class="${factorInfo.icon}"></i> ${q.factor}
+            </span>
+          </div>
+          <div class="m-score-status ${isAnswered ? "active" : ""}">
+            ${isAnswered ? `<span class="score-pill"><i class="fa-solid fa-check"></i> <strong>${scoreVal}점</strong></span>` : `<span class="empty-pill">선택 필요</span>`}
+          </div>
+        </div>
+
+        <div class="m-card-question">
+          <p>${q.text}</p>
+        </div>
+
+        <div class="m-opt-grid">
+          ${SCALE_OPTIONS.map(opt => {
+            const isSelected = currentAns === opt.val;
+            const itemScore = getItemScore(q, opt.val);
+            return `
+              <button type="button" class="m-opt-btn ${isSelected ? "selected" : ""}" data-qid="${q.id}" data-val="${opt.val}">
+                <div class="m-opt-top">
+                  <span class="m-opt-num">${opt.num}</span>
+                  <span class="m-opt-score-hint">${itemScore}점</span>
+                </div>
+                <span class="m-opt-text">${opt.text}</span>
+                ${isSelected ? `<i class="fa-solid fa-circle-check m-opt-check-icon"></i>` : ""}
+              </button>
+            `;
+          }).join("")}
+        </div>
+      </article>
+    `;
+  });
+
+  listEl.innerHTML = listHtml;
+
+  // 모바일 옵션 버튼 클릭 이벤트
+  listEl.querySelectorAll(".m-opt-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const qid = parseInt(btn.getAttribute("data-qid"), 10);
+      const val = parseInt(btn.getAttribute("data-val"), 10);
+      setAnswer(qid, val);
+    });
+  });
+
+  // 모바일 하단 요약 카드
+  if (summaryEl) {
+    const f1Scores = [1, 2, 3].map(id => state.answers[id] ? getItemScore(questions[id - 1], state.answers[id]) : 0);
+    const f2Scores = [4, 5, 6].map(id => state.answers[id] ? getItemScore(questions[id - 1], state.answers[id]) : 0);
+    const f3Items = typeConfig.factors[2].items;
+    const f3Scores = f3Items.map(id => state.answers[id] ? getItemScore(questions[id - 1], state.answers[id]) : 0);
+
+    const f1Sum = f1Scores.reduce((a, b) => a + b, 0);
+    const f2Sum = f2Scores.reduce((a, b) => a + b, 0);
+    const f3Sum = f3Scores.reduce((a, b) => a + b, 0);
+    const totalSum = f1Sum + f2Sum + f3Sum;
+    const answeredCount = Object.keys(state.answers).length;
+
+    summaryEl.innerHTML = `
+      <div class="m-summary-header">
+        <i class="fa-solid fa-calculator"></i>
+        <span>점수 실시간 집계 요약</span>
+      </div>
+      <div class="m-factor-summary-grid">
+        <div class="m-factor-box">
+          <span class="label">조절실패</span>
+          <strong class="val">${f1Sum}점</strong>
+        </div>
+        <div class="m-factor-box">
+          <span class="label">현저성</span>
+          <strong class="val">${f2Sum}점</strong>
+        </div>
+        <div class="m-factor-box">
+          <span class="label">문제적 결과</span>
+          <strong class="val">${f3Sum}점</strong>
+        </div>
+      </div>
+      <div class="m-total-box">
+        <div class="m-total-left">
+          <span class="total-label">총점 합계</span>
+          <span class="total-progress">응답 완료: <strong>${answeredCount}</strong> / ${questions.length}문항</span>
+        </div>
+        <div class="m-total-right">
+          <span class="score-large">${totalSum}</span>
+          <span class="score-max">/ ${typeConfig.maxScore}점</span>
+        </div>
+      </div>
+    `;
+  }
 }
 
 // 하단 합계 푸터 렌더링

@@ -375,6 +375,81 @@ body {
 .crit-badge.high { background: var(--status-high-bg); color: var(--status-high-text); border: 1px solid var(--status-high-border); }
 
 /* ==========================================================
+   뷰 스위칭 (데스크톱 vs 모바일)
+   ========================================================== */
+.desktop-only {
+  display: block;
+}
+
+.mobile-only {
+  display: none;
+}
+
+/* ==========================================================
+   실시간 응답 진행 상황 프로그레스 바
+   ========================================================== */
+.progress-wrap {
+  background: #f8fafc;
+  border-radius: var(--radius-md);
+  padding: 12px 18px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.86rem;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.progress-label {
+  font-weight: 700;
+  color: var(--text-sub);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.progress-label i {
+  color: var(--primary);
+}
+
+.progress-text {
+  color: var(--text-muted);
+  font-size: 0.84rem;
+}
+
+.progress-text strong {
+  color: var(--primary-dark);
+  font-size: 0.98rem;
+}
+
+.progress-bar-bg {
+  width: 100%;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #0284c7, #38bdf8);
+  border-radius: 99px;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+.progress-bar-fill.completed {
+  background: linear-gradient(90deg, #10b981, #34d399);
+}
+
+/* ==========================================================
    2단계: 체크리스트 테이블 (엑셀 스타일 인터페이스)
    ========================================================== */
 .table-container {
@@ -425,10 +500,10 @@ body {
 
 .opt-score-label {
   display: block;
-  font-size: 1.15rem;
-  font-weight: 800;
-  color: #fef08a;
-  margin-top: 4px;
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: #ffffff;
+  margin-top: 5px;
   line-height: 1;
 }
 
@@ -615,6 +690,338 @@ body {
 .text-center { text-align: center; }
 
 /* ==========================================================
+   모바일 전용 문항 카드 리스트 (스마트폰 최적화 UI)
+   ========================================================== */
+.mobile-checklist-wrap {
+  width: 100%;
+}
+
+.mobile-card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.m-card {
+  background: #ffffff;
+  border: 1.5px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  padding: 16px 14px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.m-card.m-card-answered {
+  border-color: #93c5fd;
+  background: #ffffff;
+  border-left: 5px solid var(--primary);
+}
+
+.m-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed var(--border-light);
+  gap: 8px;
+}
+
+.m-badge-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.m-num-badge {
+  display: inline-flex;
+  align-items: center;
+  background: #0f172a;
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: -0.2px;
+}
+
+.m-factor-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.badge-factor-control {
+  background: #e0f2fe;
+  color: #0369a1;
+  border: 1px solid #bae6fd;
+}
+
+.badge-factor-salience {
+  background: #f3e8ff;
+  color: #7e22ce;
+  border: 1px solid #e9d5ff;
+}
+
+.badge-factor-consequence {
+  background: #ffedd5;
+  color: #c2410c;
+  border: 1px solid #fed7aa;
+}
+
+.m-score-status {
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.m-score-status .score-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #e0f2fe;
+  color: #0369a1;
+  font-size: 0.82rem;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 99px;
+  border: 1px solid #bae6fd;
+}
+
+.m-score-status .empty-pill {
+  color: #94a3b8;
+  font-size: 0.76rem;
+  font-weight: 600;
+  background: #f1f5f9;
+  padding: 3px 8px;
+  border-radius: 99px;
+  border: 1px solid #e2e8f0;
+}
+
+.m-card-question {
+  margin-bottom: 14px;
+}
+
+.m-card-question p {
+  font-size: 1.02rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #1e293b;
+  word-break: keep-all;
+}
+
+/* 4개 선택 옵션 그리드 */
+.m-opt-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+@media (min-width: 520px) and (max-width: 768px) {
+  .m-opt-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.m-opt-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  position: relative;
+  padding: 12px 10px;
+  min-height: 64px;
+  background: #f8fafc;
+  border: 1.5px solid var(--border-medium);
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.m-opt-btn:active {
+  transform: scale(0.96);
+}
+
+.m-opt-btn:hover {
+  border-color: #93c5fd;
+  background: #ffffff;
+}
+
+.m-opt-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 6px;
+}
+
+.m-opt-num {
+  font-size: 1.12rem;
+  font-weight: 900;
+  color: #64748b;
+  line-height: 1;
+}
+
+.m-opt-score-hint {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #64748b;
+  background: #e2e8f0;
+  padding: 1px 6px;
+  border-radius: 4px;
+  line-height: 1.3;
+}
+
+.m-opt-text {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-main);
+  line-height: 1.35;
+  word-break: keep-all;
+}
+
+/* 선택된 옵션 버튼 스타일 (눈에 띄고 명확한 피드백) */
+.m-opt-btn.selected {
+  background: #eff6ff;
+  border-color: #0284c7;
+  box-shadow: 0 0 0 1.5px #0284c7, 0 2px 8px rgba(2, 132, 199, 0.16);
+}
+
+.m-opt-btn.selected .m-opt-num {
+  color: #0284c7;
+}
+
+.m-opt-btn.selected .m-opt-score-hint {
+  background: #0284c7;
+  color: #ffffff;
+}
+
+.m-opt-btn.selected .m-opt-text {
+  color: #0369a1;
+  font-weight: 800;
+}
+
+.m-opt-check-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  color: #0284c7;
+  font-size: 0.95rem;
+}
+
+/* 모바일 점수 실시간 집계 요약 카드 */
+.mobile-summary-card {
+  margin-top: 20px;
+  background: #f8fafc;
+  border: 1.5px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  padding: 16px 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+}
+
+.m-summary-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.m-summary-header i {
+  color: var(--excel-header);
+}
+
+.m-factor-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.m-factor-box {
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  padding: 8px 4px;
+  text-align: center;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+}
+
+.m-factor-box .label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.m-factor-box .val {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.m-total-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #e6f4ea;
+  border: 1.5px solid #a3cfbb;
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+
+.m-total-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.total-label {
+  font-size: 0.96rem;
+  font-weight: 800;
+  color: #0f5132;
+}
+
+.total-progress {
+  font-size: 0.76rem;
+  color: #1e293b;
+  margin-top: 2px;
+}
+
+.m-total-right {
+  text-align: right;
+}
+
+.m-total-right .score-large {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #0f5132;
+}
+
+.m-total-right .score-max {
+  font-size: 0.85rem;
+  color: #198754;
+  font-weight: 600;
+}
+
+/* ==========================================================
    3단계: 판별 결과 리포트 대시보드
    ========================================================== */
 .result-card {
@@ -767,6 +1174,225 @@ body {
 }
 
 /* ==========================================================
+   스마트폰 & 모바일 반응형 미디어 쿼리 (화면 폭 768px 이하)
+   ========================================================== */
+@media (max-width: 768px) {
+  /* 뷰 스위칭: 테이블 숨기고 모바일 전용 카드 표시 */
+  .desktop-only {
+    display: none !important;
+  }
+  .mobile-only {
+    display: block !important;
+  }
+
+  /* 컨테이너 좌우 여백 축소로 모바일 화면 가독 공간 극대화 */
+  .app-wrap {
+    padding: 12px 10px 48px;
+  }
+
+  .card-section {
+    padding: 16px 14px;
+    margin-bottom: 16px;
+    border-radius: var(--radius-md);
+  }
+
+  .section-label {
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    gap: 8px;
+  }
+
+  .section-label h2 {
+    font-size: 1.05rem;
+  }
+
+  .step-num {
+    width: 24px;
+    height: 24px;
+    font-size: 0.8rem;
+  }
+
+  .section-label .tip-text {
+    width: 100%;
+    margin-top: 2px;
+    font-size: 0.78rem;
+    line-height: 1.4;
+  }
+
+  /* 헤더 모바일 최적화 */
+  .checklist-header {
+    padding: 16px 14px;
+    margin-bottom: 16px;
+    border-radius: var(--radius-md);
+  }
+
+  .header-inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .title-group h1 {
+    font-size: 1.15rem;
+    line-height: 1.35;
+    word-break: keep-all;
+  }
+
+  .title-group .subtitle {
+    font-size: 0.78rem;
+    margin-top: 6px;
+  }
+
+  .header-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .header-actions .btn {
+    justify-content: center;
+    padding: 8px 12px;
+    font-size: 0.84rem;
+  }
+
+  /* 1단계 대분류 탭 모바일 최적화 */
+  .type-switch-group {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .type-tab-btn {
+    padding: 12px 14px;
+    gap: 10px;
+  }
+
+  .type-tab-btn i {
+    font-size: 1.3rem;
+  }
+
+  .type-tab-text strong {
+    font-size: 0.95rem;
+  }
+
+  .type-tab-text span {
+    font-size: 0.76rem;
+  }
+
+  /* 세부 대상 선택 알약 버튼 모바일 2열 그리드 */
+  .sub-target-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .sub-target-pill {
+    width: 100%;
+    padding: 8px 10px;
+  }
+
+  .sub-target-pill .st-name {
+    font-size: 0.86rem;
+  }
+
+  .sub-target-pill .st-desc {
+    font-size: 0.72rem;
+  }
+
+  /* 기준 점수 배너 모바일 */
+  .criteria-banner {
+    padding: 12px;
+    gap: 8px;
+  }
+
+  .banner-title {
+    font-size: 0.82rem;
+    line-height: 1.4;
+  }
+
+  .banner-criteria-badges {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+    gap: 6px;
+  }
+
+  .crit-badge {
+    font-size: 0.78rem;
+    padding: 5px 8px;
+    text-align: center;
+  }
+
+  /* 3단계 결과 리포트 대시보드 모바일 */
+  .result-card {
+    padding: 16px 14px;
+  }
+
+  .result-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+  }
+
+  .status-badge {
+    font-size: 1.1rem;
+    padding: 6px 14px;
+  }
+
+  .result-target-label {
+    font-size: 0.84rem;
+  }
+
+  .result-body {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .score-display-box {
+    padding: 14px;
+  }
+
+  .score-main .num {
+    font-size: 2.2rem;
+  }
+
+  .interpretation-box h4 {
+    font-size: 0.94rem;
+  }
+
+  .interpretation-box .desc {
+    font-size: 0.86rem;
+    line-height: 1.45;
+  }
+
+  .criteria-reference {
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+}
+
+/* 화면 너비 380px 이하 초소형 스마트폰 대응 */
+@media (max-width: 380px) {
+  .app-wrap {
+    padding: 10px 8px 40px;
+  }
+
+  .m-opt-text {
+    font-size: 0.82rem;
+  }
+
+  .m-opt-btn {
+    padding: 10px 8px;
+  }
+
+  .sub-target-group {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================
    인쇄 스타일
    ========================================================== */
 @media print {
@@ -777,7 +1403,14 @@ body {
     max-width: 100%;
     padding: 0;
   }
-  .header-actions, .tip-text {
+  .header-actions, .tip-text, .progress-wrap {
+    display: none !important;
+  }
+  /* 인쇄 시 항상 표준 데스크톱 표(Table)로 출력 */
+  .desktop-only {
+    display: block !important;
+  }
+  .mobile-only {
     display: none !important;
   }
   .card-section {
