@@ -198,11 +198,6 @@ function initEvents() {
       renderResult();
     }
   });
-
-  // 인쇄 버튼
-  document.getElementById("btn-print")?.addEventListener("click", () => {
-    window.print();
-  });
 }
 
 // 전체 렌더링
